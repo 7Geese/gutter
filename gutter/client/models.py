@@ -11,9 +11,9 @@ from __future__ import absolute_import
 import threading
 from collections import defaultdict
 from functools import partial
-from itertools import ifilter
 
 import six
+from six.moves import filter
 
 from gutter.client import signals
 
@@ -187,7 +187,7 @@ class Switch(object):
         return signal_decorated(result)
 
     def enabled_for_all(self, *inpts):
-        foo = ifilter(
+        foo = filter(
             lambda x: x is not None,
             (self.enabled_for(inpt) for inpt in inpts)
         )
