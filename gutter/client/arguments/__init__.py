@@ -1,10 +1,10 @@
 from functools import partial
 
-from base import Container, argument  # noqa
-import variables
+from .base import Container, argument  # noqa
+from .variables import Value, Boolean, String, Integer, Float
 
-Value = partial(argument, variables.Value)
-Boolean = partial(argument, variables.Boolean)
-String = partial(argument, variables.String)
-Integer = partial(argument, variables.Integer)
-Float = partial(argument, variables.Float)
+Value = partial(argument, Value)
+Boolean = partial(argument, Boolean)
+String = partial(argument, String)
+Integer = partial(argument, Integer)
+Float = partial(argument, Float)
