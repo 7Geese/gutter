@@ -1,9 +1,9 @@
-import unittest2
-from nose.tools import *
-from gutter.client import signals
 import mock
-
+import unittest2
 from exam.decorators import fixture
+from nose.tools import *
+
+from gutter.client import signals
 
 
 class ActsLikeSignal(object):

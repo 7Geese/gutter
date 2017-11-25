@@ -1,10 +1,8 @@
 # -*- coding: utf-8 -*-
-
 from __future__ import absolute_import
 
-# External Libraries
-from durabledict.encoding import PickleEncoding
 import jsonpickle as pickle
+from durabledict.encoding import PickleEncoding
 
 
 class JsonPickleEncoding(PickleEncoding):

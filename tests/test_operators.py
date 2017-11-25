@@ -264,12 +264,14 @@ class PercentTest(BaseOperator):
 
     class FalseyObject(object):
 
-        def __nonzero__(self):
+        def __bool__(self):
             return False
 
+        __nonzero__ = __bool__
+
     def successful_runs(self, number):
-        runs = map(self.operator.applies_to, range(1000))
-        return len(filter(bool, runs))
+        runs = [self.operator.applies_to(i) for i in range(1000)]
+        return len([run for run in runs if run])
 
 
 class PercentageTest(PercentTest, unittest2.TestCase):

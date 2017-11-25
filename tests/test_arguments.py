@@ -76,13 +76,14 @@ class BaseVariableTest(object):
         return [getattr(self.argument, f) for f in self.interface_functions]
 
     def test_implements_comparison_methods(self):
-        map(ok_, self.interface_methods)
+        for method in self.interface_methods:
+            ok_(method)
 
     def test_implements_to_python(self):
         ok_(self.klass.to_python('1'))
 
     def test_hash(self):
-        self.assertEquals(hash(self.argument.value), hash(self.argument))
+        self.assertEqual(hash(self.argument.value), hash(self.argument))
 
 
 class DelegateToValue(object):

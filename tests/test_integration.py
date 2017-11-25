@@ -31,7 +31,7 @@ class deterministicstring(str):
 
 class User(object):
     def __repr__(self):
-        return u'<User "%s" is %d years old>' % (self.name, self.age)
+        return '<User "%s" is %d years old>' % (self.name, self.age)
 
     def __init__(self, name, age, location='San Francisco', married=False):
         self.name = name
@@ -397,12 +397,12 @@ class TestIntegration(Exam, unittest2.TestCase):
         switch = Switch('foo')
         self.manager.register(switch)
 
-        self.assertEquals(self.manager.switch('foo').name, 'foo')
+        self.assertEqual(self.manager.switch('foo').name, 'foo')
 
         switch.state = Switch.states.GLOBAL
         switch.save()
 
-        self.assertEquals(
+        self.assertEqual(
             self.manager.switch('foo').state,
             Switch.states.GLOBAL
         )

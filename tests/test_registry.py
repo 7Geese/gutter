@@ -1,21 +1,18 @@
 import itertools
-import unittest2
 from copy import copy
 
+import six
+import unittest2
 from exam.cases import Exam
 from exam.decorators import around
 
-from gutter.client.operators import (
-    Base,
-    comparable,
-    identity,
-    misc,
-)
-from gutter.client.arguments.base import Container
 from gutter.client import registry
+from gutter.client.arguments.base import Container
+from gutter.client.operators import Base, comparable, identity, misc
+
 
 def all_operators_in(module):
-    for _, obj in vars(module).iteritems():
+    for _, obj in six.iteritems(vars(module)):
         try:
             if issubclass(obj, Base) and obj is not Base:
                 yield obj
@@ -24,7 +21,7 @@ def all_operators_in(module):
 
 
 ALL_OPERATORS = itertools.chain(
-    *map(all_operators_in, (comparable, identity, misc))
+    *[all_operators_in(op) for op in (comparable, identity, misc)]
 )
 
 

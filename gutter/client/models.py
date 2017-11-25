@@ -5,7 +5,6 @@ gutter.models
 :copyright: (c) 2010-2012 DISQUS.
 :license: Apache License 2.0, see LICENSE for more details.
 """
-
 from __future__ import absolute_import
 
 import threading
@@ -13,9 +12,9 @@ from collections import defaultdict
 from functools import partial
 
 import six
-from six.moves import filter
 
 from gutter.client import signals
+from six.moves import zip
 
 DEFAULT_SEPARATOR = ':'
 
@@ -115,7 +114,7 @@ class Switch(object):
             compounded=self.compounded,
             concent=self.concent
         )
-        parts = ["%s=%s" % (k, v) for k, v in kwargs.items()]
+        parts = ["%s=%s" % (k, v) for k, v in six.iteritems(kwargs)]
         return '<Switch("%s") conditions=%s, %s>' % (
             self.name,
             len(self.conditions),
@@ -187,10 +186,7 @@ class Switch(object):
         return signal_decorated(result)
 
     def enabled_for_all(self, *inpts):
-        foo = filter(
-            lambda x: x is not None,
-            (self.enabled_for(inpt) for inpt in inpts)
-        )
+        foo = [x for x in (self.enabled_for(inpt) for inpt in inpts) if x is not None]
         return self.__enabled_func(foo)
 
     def save(self):
@@ -242,7 +238,7 @@ class Switch(object):
     @property
     def state_string(self):
         state_vars = vars(self.states)
-        rev = dict(zip(state_vars.values(), state_vars))
+        rev = dict(zip(six.itervalues(state_vars), state_vars))
         return rev[self.state]
 
     @property
@@ -253,7 +249,7 @@ class Switch(object):
             return any
 
     def __changes(self):
-        for key, value in self.__init_vars.items():
+        for key, value in six.iteritems(self.__init_vars):
             if key is '_Switch__init_vars':
                 continue
             elif key not in vars(self) or getattr(self, key) != value:
@@ -440,7 +436,7 @@ class UnsafeUnthreadedBaseManager(object):
         List of all switches currently registered.
         """
         results = [
-            switch for name, switch in self.storage.iteritems()
+            switch for name, switch in six.iteritems(self.storage)
             if name.startswith(self.__joined_namespace)
         ]
 
@@ -472,7 +468,7 @@ class UnsafeUnthreadedBaseManager(object):
         return [
             self.__denamespaced(child)
             for child
-            in self.storage.keys()
+            in six.iterkeys(self.storage)
             if child.startswith(namespaced_parent)
         ]
 
@@ -491,7 +487,8 @@ class UnsafeUnthreadedBaseManager(object):
     def unregister(self, switch_or_name):
         switch = getattr(switch_or_name, 'name', switch_or_name)
 
-        map(self.unregister, self.get_children(switch))
+        for child in self.get_children(switch):
+            self.unregister(child)
 
         if switch in self:
             signals.switch_unregistered.call(self.switch(switch))
@@ -587,4 +584,3 @@ class UnsafeUnthreadedBaseManager(object):
 
 class Manager(UnsafeUnthreadedBaseManager, threading.local):
     pass
-

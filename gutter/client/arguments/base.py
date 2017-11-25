@@ -37,7 +37,7 @@ class argument(object):
 
     @property
     def name(self):
-        for name, attr in vars(self.owner).items():
+        for name, attr in six.iteritems(vars(self.owner)):
             if attr is self:
                 return name
 
@@ -59,7 +59,7 @@ class Container(object):
     @classproperty
     def arguments(cls):
         return dict(
-            (key, value) for key, value in vars(cls).items()
+            (key, value) for key, value in six.iteritems(vars(cls))
             if type(value) is argument
         )
 

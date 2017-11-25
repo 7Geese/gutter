@@ -716,7 +716,7 @@ class ManagerWithInputTest(Exam, ActsLikeManager, unittest2.TestCase):
         eq_(self.manager.active('disabled'), False)
 
     def test_raises_exception_if_invalid_switch_name_created(self):
-        self.assertRaisesRegexp(ValueError, 'switch named', self.manager.active, 'junk')
+        self.assertRaisesRegex(ValueError, 'switch named', self.manager.active, 'junk')
 
     def test_autocreates_disabled_switch_when_autocreate_is_true(self):
         eq_(self.manager.switches, [])

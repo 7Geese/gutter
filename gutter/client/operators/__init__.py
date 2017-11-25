@@ -21,7 +21,7 @@ class Base(object):
         return vars(self)
 
     def __eq__(self, other):
-        for arg in vars(self).keys():
+        for arg in list(vars(self).keys()):
             if getattr(self, arg) != getattr(other, arg):
                 return False
 
