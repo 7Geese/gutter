@@ -6,10 +6,11 @@ gutter.testutils
 :license: Apache License 2.0, see LICENSE for more details.
 """
 
+from __future__ import absolute_import, division, print_function
+
 from functools import wraps
 
 import six
-
 from gutter.client import get_gutter_client
 
 

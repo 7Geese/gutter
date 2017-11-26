@@ -1,21 +1,20 @@
-import unittest2
-from nose.tools import *
+from __future__ import absolute_import, division, print_function
 
 import zlib
 
-from redis import Redis
 from durabledict.redis import RedisDict
+from gutter.client import arguments, signals
 from gutter.client.encoding import JsonPickleEncoding
-
+from gutter.client.models import Condition, Manager, Switch
 from gutter.client.operators.comparable import *
 from gutter.client.operators.identity import *
 from gutter.client.operators.misc import *
-from gutter.client.models import Switch, Condition, Manager
-from gutter.client import arguments
-from gutter.client import signals
+from nose.tools import *
+from redis import Redis
 
-from exam.decorators import fixture, before, after, around
+import unittest2
 from exam.cases import Exam
+from exam.decorators import after, around, before, fixture
 
 
 class deterministicstring(str):

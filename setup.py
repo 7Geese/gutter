@@ -1,9 +1,11 @@
 #!/usr/bin/env python
 
-import sys
-import os
-from setuptools import find_packages
+from __future__ import absolute_import, division, print_function
 
+import os
+import sys
+
+from setuptools import find_packages
 
 try:
     from notsetuptools import setup

@@ -1,14 +1,15 @@
-import unittest2
-from durabledict import MemoryDict
-from nose.tools import *
+from __future__ import absolute_import, division, print_function
 
+from durabledict import MemoryDict
 from gutter.client import get_gutter_client
 from gutter.client.encoding import JsonPickleEncoding
-from gutter.client.testutils import switches
 from gutter.client.models import Switch
+from gutter.client.testutils import switches
+from nose.tools import *
 
-from exam.decorators import around, fixture
+import unittest2
 from exam.cases import Exam
+from exam.decorators import around, fixture
 
 
 class TestDecorator(Exam, unittest2.TestCase):

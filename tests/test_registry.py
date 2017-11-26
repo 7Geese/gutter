@@ -1,14 +1,16 @@
+from __future__ import absolute_import, division, print_function
+
 import itertools
 from copy import copy
 
 import six
-import unittest2
-from exam.cases import Exam
-from exam.decorators import around
-
 from gutter.client import registry
 from gutter.client.arguments.base import Container
 from gutter.client.operators import Base, comparable, identity, misc
+
+import unittest2
+from exam.cases import Exam
+from exam.decorators import around
 
 
 def all_operators_in(module):

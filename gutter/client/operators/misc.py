@@ -1,4 +1,7 @@
-from decimal import Context as decimal_Context, Decimal, DecimalException
+from __future__ import absolute_import, division, print_function
+
+from decimal import Context as decimal_Context
+from decimal import Decimal, DecimalException
 
 from gutter.client.operators import Base
 from gutter.client.registry import operators

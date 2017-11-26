@@ -1,12 +1,13 @@
-import unittest2
-from nose.tools import *  # noqa
+from __future__ import absolute_import, division, print_function
 
 from gutter.client.operators import OperatorInitError
 from gutter.client.operators.comparable import *  # noqa
 from gutter.client.operators.identity import *  # noqa
 from gutter.client.operators.misc import *  # noqa
 from gutter.client.operators.string import *  # noqa
+from nose.tools import *  # noqa
 
+import unittest2
 from exam.decorators import fixture
 
 

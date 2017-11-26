@@ -5,15 +5,15 @@ gutter.models
 :copyright: (c) 2010-2012 DISQUS.
 :license: Apache License 2.0, see LICENSE for more details.
 """
-from __future__ import absolute_import
+from __future__ import absolute_import, division, print_function
 
 import threading
 from collections import defaultdict
 from functools import partial
 
 import six
-
 from gutter.client import signals
+
 from six.moves import zip
 
 DEFAULT_SEPARATOR = ':'

@@ -1,9 +1,11 @@
+from __future__ import absolute_import, division, print_function
+
 import mock
-import unittest2
-from exam.decorators import fixture
+from gutter.client import signals
 from nose.tools import *
 
-from gutter.client import signals
+import unittest2
+from exam.decorators import fixture
 
 
 class ActsLikeSignal(object):

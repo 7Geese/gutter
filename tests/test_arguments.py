@@ -1,11 +1,12 @@
-import unittest2
+from __future__ import absolute_import, division, print_function
+
+from gutter.client import arguments
+from gutter.client.arguments import Container
+from gutter.client.arguments.variables import *
 from mock import MagicMock, Mock
 from nose.tools import *
 
-from gutter.client.arguments.variables import *
-from gutter.client import arguments
-from gutter.client.arguments import Container
-
+import unittest2
 from exam.decorators import fixture
 
 

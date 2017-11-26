@@ -1,17 +1,19 @@
+from __future__ import absolute_import, division, print_function
+
 import itertools
 import threading
-import unittest2
 
-from nose.tools import *
-from gutter.client.arguments import Container as BaseArgument
-from gutter.client import arguments
-from gutter.client.models import Switch, Manager, Condition
+import mock
 from durabledict import MemoryDict
 from durabledict.base import DurableDict
-from gutter.client import signals
-import mock
-from exam.decorators import fixture, before
+from gutter.client import arguments, signals
+from gutter.client.arguments import Container as BaseArgument
+from gutter.client.models import Condition, Manager, Switch
+from nose.tools import *
+
+import unittest2
 from exam.cases import Exam
+from exam.decorators import before, fixture
 
 
 class ManagerMixin(Exam):
