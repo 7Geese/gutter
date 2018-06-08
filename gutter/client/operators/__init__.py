@@ -26,3 +26,6 @@ class Base(object):
                 return False
 
         return True
+
+    def __hash__(self):
+        return hash(tuple(vars(self)))

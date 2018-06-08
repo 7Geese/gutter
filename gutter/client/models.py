@@ -326,6 +326,9 @@ class Condition(object):
             self.negative is other.negative
         )
 
+    def __hash__(self):
+        return hash((self.argument, self.attribute, self.operator, self.negative))
+
     def call(self, inpt):
         """
         Returns if the condition applies to the ``inpt``.
