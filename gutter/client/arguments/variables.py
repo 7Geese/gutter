@@ -18,7 +18,7 @@ class Base(object):
 
         return func
 
-    __cmp__ = __proxy_to_value_method('__cmp__')
+    __eq__ = __proxy_to_value_method('__eq__')
     __hash__ = __proxy_to_value_method('__hash__')
     __nonzero__ = __proxy_to_value_method('__nonzero__')
 
@@ -61,8 +61,8 @@ class Boolean(Base):
 
 class String(Base):
 
-    def __cmp__(self, other):
-        return cmp(self.value, other)
+    def __eq__(self, other):
+        return self.value == other
 
     def __nonzero__(self, *args, **kwargs):
         return bool(self.value)
