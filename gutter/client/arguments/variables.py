@@ -37,6 +37,12 @@ class Integer(Base):
     def to_python(value):
         return int(value)
 
+    def __eq__(self, other):
+        return self.value == other
+
+    def __hash__(self):
+        return hash(self.value)
+
 
 class Float(Base):
 
