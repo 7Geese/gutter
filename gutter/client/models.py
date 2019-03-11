@@ -132,6 +132,7 @@ class Switch(object):
     def __getstate__(self):
         inner_dict = vars(self).copy()
         inner_dict.pop('manager', False)
+        inner_dict.pop('_Switch__init_vars', False)
         return inner_dict
 
     def __setstate__(self, state):
