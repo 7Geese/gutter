@@ -21,6 +21,8 @@ class Base(object):
     __eq__ = __proxy_to_value_method('__eq__')
     __hash__ = __proxy_to_value_method('__hash__')
     __nonzero__ = __proxy_to_value_method('__nonzero__')
+    __gt__ = __proxy_to_value_method('__gt__')
+    __lt__ = __proxy_to_value_method('__lt__')
 
     @staticmethod
     def to_python(value):
