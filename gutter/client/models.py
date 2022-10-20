@@ -251,7 +251,7 @@ class Switch(object):
 
     def __changes(self):
         for key, value in six.iteritems(self.__init_vars):
-            if key is '_Switch__init_vars':
+            if key == '_Switch__init_vars':
                 continue
             elif key not in vars(self) or getattr(self, key) != value:
                 yield (key, dict(previous=value, current=getattr(self, key)))
