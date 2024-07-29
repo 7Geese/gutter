@@ -29,31 +29,6 @@ def all_false_if_empty(iterable):
     return True
 
 
-class ConditionsDict(defaultdict):
-
-    @classmethod
-    def from_conditions_list(cls, conditions):
-        conditions_dict = cls(set)
-
-        for cond in conditions:
-            conditions_dict[cond.argument.COMPATIBLE_TYPE].add(cond)
-
-        return conditions_dict
-
-    def get_by_input(self, inpt):
-        return self.get_by_type(type(inpt))
-
-    def get_by_type(self, to_get_key):
-        if to_get_key in self:
-            return self[to_get_key]
-        for key_type in self:
-            if issubclass(to_get_key, key_type):
-                return self[key_type]
-
-        # raise the correct exception
-        return self[to_get_key]
-
-
 class Switch(object):
 
     """
@@ -171,8 +146,26 @@ class Switch(object):
         elif self.state is self.states.DISABLED:
             return signal_decorated(False)
 
-        conditions_dict = ConditionsDict.from_conditions_list(self.conditions)
-        conditions = conditions_dict.get_by_input(inpt)
+        # The original code here follows this algorithm:
+        # 1. Sort all conditions by their COMPATIBLE_TYPE, building a map of type -> set(condition)
+        # 2. Look in the map for an exact match of the input type
+        # 3. If found, return the set(condition) for that type
+        # 4. Iterate through the superclasses of the inpu type, looking for an exact match.
+        # 5. Return the first match.
+        #
+        # The problem is that set() requires calling __eq__ since sets are unique.  __eq__ for a condition is an
+        # expensive operation, since we have to compare _everything_ and the operators are highly dynamic.
+        # Thus, we spend almost all our time building the sets to only use one and minimize the number of condition evaluations
+        #
+        # Our specific implementation of gutter uses only COMPATIBLE_TYPE = object, so we can simplify this.
+        # Instead, we look for all conditions where the value is a subclass of the COMPATIBLE_TYPE, don't worry about duplicates
+        # and just evaluate them, since it is faster for us to evaluate duplicate conditions than to build the sets.
+        # This leads to us potentially evaluating more conditions than the base library, since we would include conditions
+        # defined against superclasses if there were specific classes as well.
+        # We know, however, that in our application that will never happen and the map that would be built here will only
+        # ever contain one key: object.  Thus, we can simplify all the logic greatly and make it _much_ faster.
+        inpt_type = type(inpt)
+        conditions = [cond for cond in self.conditions if issubclass(inpt_type, cond.argument.COMPATIBLE_TYPE)]
 
         if conditions:
             result = self.__enabled_func(
